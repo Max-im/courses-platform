@@ -9,7 +9,7 @@
 - server `nestjs` with `typeorm`
 - `typescript`
 - `postgresql`
-- `rabitMQ`
+- `rabbitMQ`
 
 ## Development server
 
