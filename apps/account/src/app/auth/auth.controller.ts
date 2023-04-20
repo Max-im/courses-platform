@@ -1,5 +1,5 @@
 import { Controller, Post, Body, UseGuards } from '@nestjs/common';
-import { LoginDto, RegisterDto } from './auth.dto';
+import { AccountLogin, AccountRegister } from '@courses/contracts';
 import { UserService } from '../user/user.service';
 import { AuthService } from './auth.service';
 import { AuthGuard } from './auth.guard';
@@ -14,14 +14,14 @@ export class AuthController {
 
     @Post('register')
     @UseGuards(AuthGuard)
-    async register(@Body() dto: RegisterDto) {
+    async register(@Body() dto: AccountRegister.Request): Promise<AccountRegister.Response> {
         const user = await this.userService.createUser(dto);
         return {email: user.email};
     }
     
     @Post('login')
     @UseGuards(AuthGuard)
-    async login(@Body('user') dto: LoginDto) {
+    async login(@Body('user') dto: AccountLogin.Request): Promise<AccountLogin.Response> {
         const userId = await this.authService.validateUser(dto);
         return this.authService.login(userId);
     }

@@ -1,8 +1,8 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
+import { AccountRegister } from '@courses/contracts';
 import { InjectRepository } from "@nestjs/typeorm";
 import { Repository } from 'typeorm';
 import { UserEntity } from './user.entity'; 
-import { RegisterDto } from '../auth/auth.dto';
 
 @Injectable()
 export class UserService {
@@ -19,7 +19,7 @@ export class UserService {
         return await this.userRepository.findOneBy({ displayName });
     }
 
-    async createUser(dto: RegisterDto): Promise<{email: string}> {
+    async createUser(dto: AccountRegister.Request): Promise<UserEntity> {
         const userByEmail = await this.getUserByEmail(dto.email);
 
         if (userByEmail) {

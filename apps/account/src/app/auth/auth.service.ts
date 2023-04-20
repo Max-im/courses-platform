@@ -1,7 +1,7 @@
 import { HttpException, HttpStatus, Injectable } from '@nestjs/common';
 import { JwtService } from '@nestjs/jwt';
 import { InjectRepository } from '@nestjs/typeorm';
-import { LoginDto } from './auth.dto';
+import { AccountLogin } from '@courses/contracts';
 import { UserEntity } from '../user/user.entity';
 import { Repository } from 'typeorm';
 
@@ -13,7 +13,7 @@ export class AuthService {
         private readonly jwtService: JwtService
     ) {}
 
-    async validateUser(dto: LoginDto): Promise<string> {
+    async validateUser(dto: AccountLogin.Request): Promise<string> {
         const user = await this.userRepository.findOneBy({ email: dto.email });
         const errorMsg = 'Invalid email or password';
 
