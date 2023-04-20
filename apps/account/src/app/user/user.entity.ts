@@ -1,6 +1,7 @@
 import { IUser } from '@courses/interfaces';
 import { genSalt, hash, compare } from 'bcryptjs';
-import { Entity, PrimaryGeneratedColumn, Column } from 'typeorm';
+import { Entity, PrimaryGeneratedColumn, Column, ManyToOne, ManyToMany, JoinTable } from 'typeorm';
+import { UserCourseEntity } from './user-course.entity';
 
 @Entity({name: 'users'})
 export class UserEntity implements IUser {
@@ -18,6 +19,10 @@ export class UserEntity implements IUser {
 
     @Column({default: 'Student'})
     role: string
+
+    @ManyToMany(() => UserCourseEntity)
+    @JoinTable()
+    userCourses: UserCourseEntity[];
 
     async setPassword(password: string) {
         const salt = await genSalt(10);
