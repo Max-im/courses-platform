@@ -2,7 +2,10 @@
   "name": "courses",
   "version": "0.0.0",
   "license": "MIT",
-  "scripts": {},
+  "scripts": {
+    "all": "nx run-many --targets=serve --all",
+    "account": "nx serve account"
+  },
   "private": true,
   "dependencies": {
     "@nestjs/common": "^9.0.0",
